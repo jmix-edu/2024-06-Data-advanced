@@ -8,6 +8,7 @@
                     class="com.company.jmixpm.entity.Task">
             <fetchPlan extends="_base">
                 <property name="assignee" fetchPlan="_base"/>
+                <property name="project" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="tasksDl" readOnly="true">
                 <query>
@@ -33,8 +34,6 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="createBtn" action="tasksDataGrid.create"/>
-            <button id="editBtn" action="tasksDataGrid.edit"/>
             <button id="removeBtn" action="tasksDataGrid.remove"/>
             <simplePagination id="pagination" dataLoader="tasksDl"/>
         </hbox>
@@ -44,8 +43,6 @@
                   dataContainer="tasksDc"
                   columnReorderingAllowed="true">
             <actions>
-                <action id="create" type="list_create"/>
-                <action id="edit" type="list_edit"/>
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
@@ -53,6 +50,11 @@
                 <column property="assignee"/>
                 <column property="startDate"/>
                 <column property="estimatedEfforts"/>
+                <column property="project"/>
+                <!--                <column key="label"/>-->
+                <column property="closed"/>
+                <column property="label"/>
+                <column property="supposedEndDate"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

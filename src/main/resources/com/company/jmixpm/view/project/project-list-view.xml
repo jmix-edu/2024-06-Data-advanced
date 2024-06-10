@@ -8,8 +8,9 @@
                     class="com.company.jmixpm.entity.Project">
             <fetchPlan extends="_base">
                 <property name="manager" fetchPlan="_base"/>
+                <property name="roadmap" fetchPlan="_base"/>
             </fetchPlan>
-            <loader id="projectsDl" readOnly="true">
+            <loader id="projectsDl">
                 <query>
                     <![CDATA[select e from Project e]]>
                 </query>
@@ -53,6 +54,14 @@
                 <column property="startDate"/>
                 <column property="endDate"/>
                 <column property="manager"/>
+                <column property="status"/>
+                <column property="roadmap"/>
+                <column property="projectLabels" editable="true"/>
+                <editorActionsColumn>
+                    <editButton icon="EDIT"/>
+                    <cancelButton icon="BAN"/>
+                </editorActionsColumn>
+                <column property="totalEstimatedEfforts"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

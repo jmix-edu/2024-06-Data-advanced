@@ -1,12 +1,15 @@
 package com.company.jmixpm.view.user;
 
+import com.company.jmixpm.entity.ContactInformation;
 import com.company.jmixpm.entity.User;
 import com.company.jmixpm.view.main.MainView;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.EntityStates;
+import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +32,8 @@ public class UserDetailView extends StandardDetailView<User> {
     private PasswordField confirmPasswordField;
     @ViewComponent
     private ComboBox<String> timeZoneField;
+    @ViewComponent
+    private InstanceContainer<User> userDc;
 
     @Autowired
     private EntityStates entityStates;
@@ -36,6 +41,8 @@ public class UserDetailView extends StandardDetailView<User> {
     private MessageBundle messageBundle;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private Notifications notifications;
 
     @Subscribe
     public void onInit(final InitEvent event) {
@@ -70,4 +77,19 @@ public class UserDetailView extends StandardDetailView<User> {
             getEditedEntity().setPassword(passwordEncoder.encode(passwordField.getValue()));
         }
     }
+
+    @Subscribe(id = "userDc", target = Target.DATA_CONTAINER)
+    public void onUserDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<User> event) {
+        notifications.create("User: " + event.getProperty())
+                .show();
+    }
+
+    @Subscribe(id = "contactInformationDc", target = Target.DATA_CONTAINER)
+    public void onContactInformationDcItemPropertyChange(final InstanceContainer.ItemPropertyChangeEvent<ContactInformation> event) {
+        notifications.create("ContactInformation: " + event.getProperty())
+                .show();
+    }
+    
+    
+  
 }

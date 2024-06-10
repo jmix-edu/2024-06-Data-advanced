@@ -7,8 +7,13 @@
                   class="com.company.jmixpm.entity.Project">
             <fetchPlan extends="_base">
                 <property name="manager" fetchPlan="_base"/>
+                <property name="participants" fetchPlan="_base"/>
+                <property name="tasks" fetchPlan="_base"/>
+                <property name="roadmap" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
+            <collection id="participantsDc" property="participants"/>
+            <collection id="tasksDc" property="tasks"/>
         </instance>
     </data>
     <facets>
@@ -29,10 +34,77 @@
                     <action id="entityClear" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <select id="statusField" property="status"/>
+            <textField id="projectLabelsField" property="projectLabels" readOnly="true"/>
         </formLayout>
+        <details id="roadmapDetails" summaryText="msg://roadmapDetails.summary" width="100%">
+            <formLayout id="roadmapForm" dataContainer="projectDc">
+                <textField id="roadmapNameField" property="roadmap.name"/>
+                <datePicker id="roadmapStartDateField" property="roadmap.startDate"/>
+                <datePicker id="roadmapEndDateField" property="roadmap.endDate"/>
+                <textArea id="roadmapGoalField" property="roadmap.goal"/>
+            </formLayout>
+        </details>
+        <h3 text="msg://tasks.text"/>
+        <hbox>
+            <button id="createBtn" action="tasksDataGrid.create"/>
+            <button id="editBtn" action="tasksDataGrid.edit"/>
+            <button id="removeBtn" action="tasksDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="tasksDataGrid"
+                  dataContainer="tasksDc"
+                  minHeight="10em"
+                  width="100%">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="startDate"/>
+                <column property="estimatedEfforts"/>
+            </columns>
+        </dataGrid>
+        <h3 text="msg://participants.text"/>
+        <hbox>
+            <button id="createUserBtn" action="participantsDataGrid.create"/>
+            <button id="addBtn" action="participantsDataGrid.add"/>
+            <button id="excludeBtn" action="participantsDataGrid.exclude"/>
+        </hbox>
+        <dataGrid id="participantsDataGrid"
+                  width="100%"
+                  minHeight="10em"
+                  dataContainer="participantsDc">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="add" type="list_add"/>
+                <action id="exclude" type="list_exclude"/>
+            </actions>
+            <columns>
+                <column property="username"/>
+                <column property="firstName"/>
+                <column property="lastName"/>
+            </columns>
+        </dataGrid>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
             <button id="closeBtn" action="closeAction"/>
+            <button id="commitWithBeanValidation" text="msg://commitWithBeanValidation.text"/>
+            <button id="performBeanValidationBtn"
+                    text="msg://performBeanValidationBtn.text"/>
         </hbox>
     </layout>
 </view>

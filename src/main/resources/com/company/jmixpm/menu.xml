@@ -5,6 +5,12 @@
         <item view="User.list" title="msg://com.company.jmixpm.view.user/UserListView.title"/>
         <item view="Project.list" title="msg://com.company.jmixpm.view.project/projectListView.title"/>
         <item view="Task_.list" title="msg://com.company.jmixpm.view.task/taskListView.title"/>
+        <item view="TimeEntry.list" title="msg://com.company.jmixpm.view.timeentry/timeEntryListView.title"/>
+        <item view="Roadmap.list" title="msg://com.company.jmixpm.view.roadmap/roadmapListView.title"/>
+        <item view="ProjectStatsView" title="msg://com.company.jmixpm.view.projectstats/projectStatsView.title"/>
+        <item view="WorkloadView" title="msg://com.company.jmixpm.view.workload/workloadView.title"/>
+        <item view="ProjectMasterDetail.list"
+              title="msg://com.company.jmixpm.view.project/projectMasterDetailView.title"/>
     </menu>
 
 </menu-config>
