@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <menu id="application" title="msg://com.company.jmixpm/menu.application.title" opened="true">
+    <menu opened="true" id="application" title="msg://com.company.jmixpm/menu.application.title">
         <item view="User.list" title="msg://com.company.jmixpm.view.user/UserListView.title"/>
         <item view="Project.list" title="msg://com.company.jmixpm.view.project/projectListView.title"/>
         <item view="Task_.list" title="msg://com.company.jmixpm.view.task/taskListView.title"/>
@@ -11,6 +11,14 @@
         <item view="WorkloadView" title="msg://com.company.jmixpm.view.workload/workloadView.title"/>
         <item view="ProjectMasterDetail.list"
               title="msg://com.company.jmixpm.view.project/projectMasterDetailView.title"/>
+        <item view="PersonalData.list" title="msg://com.company.jmixpm.view.personaldata/personalDataListView.title"/>
     </menu>
-
+    <menu id="customers" description="msg://com.company.jmixpm/menu_config.customers.description"
+          title="msg://com.company.jmixpm/menu_config.customers.title">
+        <item view="Customer.list" title="msg://com.company.jmixpm.view.customer/customerListView.title"/>
+        <item view="Order_.list" title="msg://com.company.jmixpm.view.order/orderListView.title"/>
+        <item view="CustomSearchView" title="msg://com.company.jmixpm.view.customsearch/customSearchView.title"/>
+        <item view="CustomerSubstringSearch"
+              title="msg://com.company.jmixpm.view.customersubstringsearch/customerSubstringSearch.title"/>
+    </menu>
 </menu-config>

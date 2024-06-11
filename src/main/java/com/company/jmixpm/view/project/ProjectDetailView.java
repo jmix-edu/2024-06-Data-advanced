@@ -5,11 +5,14 @@ import com.company.jmixpm.datatype.ProjectLabels;
 import com.company.jmixpm.entity.Project;
 
 import com.company.jmixpm.entity.Roadmap;
+import com.company.jmixpm.entity.Task;
 import com.company.jmixpm.view.main.MainView;
 
+import com.company.jmixpm.view.user.UserListView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.Route;
+import io.jmix.core.DataManager;
 import io.jmix.core.validation.group.UiComponentChecks;
 import io.jmix.core.validation.group.UiCrossFieldChecks;
 import io.jmix.flowui.Notifications;
@@ -42,6 +45,8 @@ public class ProjectDetailView extends StandardDetailView<Project> {
     private Notifications notifications;
     @Autowired
     private Validator validator;
+    @Autowired
+    private DataManager dataManager;
 
     @Subscribe
     public void onInitEntity(final InitEntityEvent<Project> event) {
@@ -90,4 +95,12 @@ public class ProjectDetailView extends StandardDetailView<Project> {
                 .withPosition(Notification.Position.BOTTOM_END)
                 .show();
     }
+
+    @Install(to = "participantsDataGrid.add", subject = "viewConfigurer")
+    private void participantsDataGridAddViewConfigurer(final UserListView userListView) {
+
+        userListView.setFilterProject(getEditedEntity());
+
+    }
+
 }

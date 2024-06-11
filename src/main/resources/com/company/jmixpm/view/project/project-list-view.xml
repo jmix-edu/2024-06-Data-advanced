@@ -9,6 +9,7 @@
             <fetchPlan extends="_base">
                 <property name="manager" fetchPlan="_base"/>
                 <property name="roadmap" fetchPlan="_base"/>
+                <property name="owner" fetchPlan="_base"/>
             </fetchPlan>
             <loader id="projectsDl">
                 <query>
@@ -16,7 +17,19 @@
                 </query>
             </loader>
         </collection>
+<!--        named function call-->
+        <collection id="projectsDc_1" class="com.company.jmixpm.entity.Project">
+            <loader id="projectsDl_1" readOnly="true">
+                <query/>
+                <![CDATA[select e from Project e
+        where function('actual_efforts', e.id) > e.totalEstimatedEfforts]]>
+                <query/>
+            </loader>
+            <fetchPlan extends="_base"/>
+        </collection>
+
     </data>
+
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
@@ -37,6 +50,7 @@
             <button id="createBtn" action="projectsDataGrid.create"/>
             <button id="editBtn" action="projectsDataGrid.edit"/>
             <button id="removeBtn" action="projectsDataGrid.remove"/>
+            <button id="createWithDataManagerBtn" text="msg://createWithDataManagerBtn"/>
             <simplePagination id="pagination" dataLoader="projectsDl"/>
         </hbox>
         <dataGrid id="projectsDataGrid"
@@ -62,6 +76,7 @@
                     <cancelButton icon="BAN"/>
                 </editorActionsColumn>
                 <column property="totalEstimatedEfforts"/>
+                <column property="owner"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">

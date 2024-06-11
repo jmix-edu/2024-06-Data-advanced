@@ -7,6 +7,7 @@
                   class="com.company.jmixpm.entity.User">
             <fetchPlan extends="_base">
                 <property name="contactInformation" fetchPlan="_base"/>
+                <property name="personalData" fetchPlan="_base"/>
             </fetchPlan>
             <loader/>
             <instance id="contactInformationDc" property="contactInformation"/>
@@ -34,9 +35,15 @@
             <textField id="lastNameField" property="lastName"/>
             <comboBox id="timeZoneField" property="timeZoneId"/>
             <checkbox id="activeField" property="active"/>
+            <entityPicker id="personalDataField" property="personalData">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
         </formLayout>
         <details id="contactInfoDetails" summaryText="msg://com.company.jmixpm.entity/User.contactInformation.summary"
-        opened="true">
+                 opened="true">
             <formLayout id="contactInfoForm" dataContainer="contactInformationDc">
                 <textField id="contactInformationEmailField" property="email"/>
                 <textField id="contactInformationPhoneField" property="phone"/>

@@ -1,12 +1,15 @@
 package com.company.jmixpm.entity;
 
+import io.jmix.core.DeletePolicy;
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.annotation.Secret;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.OnDelete;
 import io.jmix.core.entity.annotation.SystemLevel;
+import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
@@ -23,7 +26,8 @@ import java.util.UUID;
 @JmixEntity
 @Entity
 @Table(name = "USER_", indexes = {
-        @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true)
+        @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true),
+        @Index(name = "IDX_USER__PERSONAL_DATA", columnList = "PERSONAL_DATA_ID")
 })
 public class User implements JmixUserDetails, HasTimeZone {
 
@@ -62,6 +66,12 @@ public class User implements JmixUserDetails, HasTimeZone {
     @ManyToMany
     private List<Project> projects;
 
+    @OnDelete(DeletePolicy.CASCADE)
+    @Composition
+    @JoinColumn(name = "PERSONAL_DATA_ID")
+    @OneToOne(fetch = FetchType.LAZY)
+    private PersonalData personalData;
+
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
     @AttributeOverrides({
@@ -82,6 +92,14 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     @Transient
     protected Collection<? extends GrantedAuthority> authorities;
+
+    public PersonalData getPersonalData() {
+        return personalData;
+    }
+
+    public void setPersonalData(PersonalData personalData) {
+        this.personalData = personalData;
+    }
 
     public OffsetDateTime getDeletedDate() {
         return deletedDate;
